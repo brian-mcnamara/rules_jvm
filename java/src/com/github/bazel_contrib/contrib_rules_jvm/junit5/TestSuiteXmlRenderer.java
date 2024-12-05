@@ -18,13 +18,14 @@ class TestSuiteXmlRenderer {
     testRenderer = new TestCaseXmlRenderer(testPlan);
   }
 
-  public void toXml(XMLStreamWriter xml, TestData suite, Collection<TestData> tests)
+  public void toXml(XMLStreamWriter xml, TestData suite, Collection<TestData> tests, int suiteId)
       throws XMLStreamException {
     xml.writeStartElement("testsuite");
 
     xml.writeAttribute("name", escapeIllegalCharacters(suite.getId().getLegacyReportingName()));
     xml.writeAttribute("timestamp", DateTimeFormatter.ISO_INSTANT.format(suite.getStarted()));
     xml.writeAttribute("hostname", getHostname());
+    xml.writeAttribute("id", String.valueOf(suiteId));
     xml.writeAttribute("tests", String.valueOf(tests.size()));
 
     int errors = 0;

@@ -207,9 +207,10 @@ public class BazelJUnitOutputListener implements TestExecutionListener, Closeabl
 
       // Write the results
       try {
+        int suiteId = 0;
         for (Map.Entry<TestData, List<TestData>> suiteAndTests : testSuites.entrySet()) {
           new TestSuiteXmlRenderer(testPlan)
-              .toXml(xml, suiteAndTests.getKey(), suiteAndTests.getValue());
+              .toXml(xml, suiteAndTests.getKey(), suiteAndTests.getValue(), suiteId++);
         }
       } catch (XMLStreamException e) {
         throw new RuntimeException(e);
